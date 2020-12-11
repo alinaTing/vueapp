@@ -1,0 +1,68 @@
+<!-- 在 HTML 中是 kebab-case 的 -->
+<div class="app-1">
+<!--    静态赋值-->
+    <blog-post post-title="hello!"></blog-post>
+<!--    动态赋值-->
+    <blog-post :post-title="hello"></blog-post>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.component('blog-post', {
+        props: ['postTitle'],
+        template: '<h3>{{ postTitle }}</h3>'
+    })
+
+    var vm=new Vue({
+        el:'.app-1',
+        data:{
+            hello:'hello_vue',
+        }
+    })
+    console.log(vm.postTitle);
+</script>
+
+<div class="app-2">
+    <blog-post-2 title="hello"></blog-post-2>
+    <blog-post-2 :title="hello"></blog-post-2>
+</div>
+
+<script>
+    Vue.component('blog-post-2', {
+        props: {
+            title: String,
+            likes: Number,
+            isPublished: Boolean,
+            commentIds: Array,
+            author: Object,
+            callback: Function,
+            contactsPromise: Promise // or any other constructor
+        },
+        template: '<h3>{{ title }}</h3>'
+    })
+
+    var vm=new Vue({
+        el:'.app-2',
+        data:{
+            hello:'hello_vue',
+        }
+    })
+</script>
+
+<div class="app-3">
+    <blog-post-3  v-for="post in posts" v-bind:post="post" :title="post.title"></blog-post-3>
+</div>
+<script>
+    Vue.component('blog-post-3', {
+        props:['post'],
+        template: `<div class="blog-post"><h3>{{ post.title }}-{{ post.content }}</h3></div>`
+    })
+
+    var vm=new Vue({
+        el:'.app-3',
+        data:{
+            posts:[{id:1,title:'abc',content:'知道的'}],
+        }
+    })
+</script>

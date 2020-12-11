@@ -1,0 +1,84 @@
+<div class="app-1">
+    <h1 v-if="awesome">Vue is awesome!</h1>
+    <h1 v-else>Oh no 😢</h1>
+
+<!-- v-else 元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别。-->
+ <!-- 多个元素可以加在template -->
+    <template v-if="awesome">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+    </template>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+new Vue({
+    el:'.app-1',
+    data:{
+        awesome:true
+    }
+})
+</script>
+
+<div class="app-2">
+    <div v-if="type === 'A'">
+        A
+    </div>
+    <div v-else-if="type === 'B'">
+        B
+    </div>
+    <div v-else-if="type === 'C'">
+        C
+    </div>
+    <div v-else>
+        Not A/B/C
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el:'.app-2',
+        data:{
+            type:'A'
+        }
+    })
+</script>
+
+
+<!-- 添加key值就不会复用，不同的input 如果不加key,保留上次输入的input值-->
+<div class="app-3">
+<template v-if="loginType === 'username'">
+    <label>Username</label>
+    <input placeholder="Enter your username" key="username-input">
+</template>
+<template v-else>
+    <label>Email</label>
+    <input placeholder="Enter your email address" key="email-input">
+</template>
+</div>
+<script>
+    var app3=new Vue({
+        el:'.app-3',
+        data:{
+            loginType:'username'
+        }
+    })
+</script>
+
+<!-- 不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换 display:none。
+一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
+-->
+<div class="app-4" >
+<h1 v-show="loginType === 2">Hello!</h1>
+</div>
+<script>
+    new Vue({
+        el:'.app-4',
+        data:{
+            loginType:2
+        }
+    })
+</script>
+
